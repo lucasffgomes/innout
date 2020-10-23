@@ -24,6 +24,12 @@
             $this->values[$key] = $value;
         }
 
+        public static function getOne($filters = []) {
+            $class = get_called_class();
+            $result = static::getResultSetFromSelect($filters, $columns = '*');
+            return $result ? new $class($result->fetch_assoc()) : null;
+        }
+        
         public static function get($filters = []) {
             $objects = [];
             $result = static::getResultSetFromSelect($filters, $columns = '*');
